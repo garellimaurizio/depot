@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+#  get 'admin/index' Riscrivo la regola eliminando index per fare l'indirizzo più corto
+  get 'admin' => 'admin#index'
+
+#  get 'session/new'
+#  get 'session/create' Cambio l'url per renderlo maggiormente corretto per l'utente
+#  get 'session/destroy'
+  controller :sessions do
+    get  'login' => 'session#new'
+    post 'login' => 'session#create'
+	get 'logout' => 'session#destroy'
+  end
+  
+  get "sessions/create"
+  get "sessions/destroy"
+
+  resources :users
   resources :orders
   resources :line_items
   resources :carts
