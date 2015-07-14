@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-#  get 'admin/index' Riscrivo la regola eliminando index per fare l'indirizzo più corto
+#  get 'admin/index' 		I rewrite the rule deleting the index for make the address more short
   get 'admin' => 'admin#index'
 
 #  get 'session/new'
-#  get 'session/create' Cambio l'url per renderlo maggiormente corretto per l'utente
+#  get 'session/create' 	I change the URL for make it more semantically correct for the user
 #  get 'session/destroy'
   controller :sessions do
     get  'login' => 'session#new'
@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   get "sessions/destroy"
 
   resources :users
-  resources :orders
-  resources :line_items
-  resources :carts
+#  resources :orders 			Moved inside a scope declaretion for add translation to it
+#  resources :line_items		Moved inside a scope declaretion for add translation to it
+#  resources :carts				Moved inside a scope declaretion for add translation to it
   get 'store/index'
   
   resources :products do
@@ -25,7 +25,15 @@ Rails.application.routes.draw do
   end
   
   
-  root 'store#index', as: 'store'
+#  root 'store#index', as: 'store'		Moved inside a scope declaretion for add translation to it
+  
+  scope '(:locale)' do
+    resources :orders
+    resources :line_items
+    resources :carts
+    root 'store#index', as: 'store', via: :all
+  end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
